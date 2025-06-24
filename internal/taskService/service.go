@@ -10,29 +10,17 @@ type MainTaskService interface {
 
 type taskService struct {
 	repo MainTaskRepository
-	//idGen *AutoIncrement
 }
 
 func NewTaskService(repo MainTaskRepository) *taskService { //, idGen *AutoIncrement
 	return &taskService{
 		repo: repo,
-		//idGen: idGen,
 	}
 }
-
-//type AutoIncrement struct {
-//	id int
-//}
-
-//func (a *AutoIncrement) NextID() int {
-//	a.id++
-//	return a.id
-//}
 
 func (s *taskService) CreateTask(req RequestBodyTask) (RequestBodyTask, error) {
 
 	postTask := RequestBodyTask{
-		//	ID:            	s.idGen.NextID(),
 		Task:           req.Task,
 		Accomplishment: req.Accomplishment,
 	}

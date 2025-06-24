@@ -3,7 +3,7 @@ info:
   title: API
   version: 1.0.0 
 paths:
-  /tasks:
+  /task:
     get:
       summary: Get all tasks
       tags:
@@ -35,7 +35,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-              
+  /task/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    patch:
+      summary: Patch task
+      tags:
+        - tasks
+      requestBody:
+        description: The patch task
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: The updated task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      summary: delete task
+      tags: 
+        - tasks
+      requestBody:
+        description: The delete task
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '204':
+          description: The delete task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
 components:
   schemas:
     Task:
@@ -43,7 +86,7 @@ components:
       properties:
         id:
           type: integer
-          format: uint # так как в БД айди это только положительные числа.
+          format: int32 
         task:
           type: string
         Accomplishment:

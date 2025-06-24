@@ -1,6 +1,8 @@
 package taskservice
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 //ОСновные методв CRUD - Create Read Update Delete
 
