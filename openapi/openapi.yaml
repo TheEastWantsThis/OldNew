@@ -86,7 +86,7 @@ components:
       properties:
         id:
           type: integer
-          format: int32 
+          format: uint 
         task:
           type: string
         Accomplishment:

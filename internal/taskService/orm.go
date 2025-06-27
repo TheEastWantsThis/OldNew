@@ -5,3 +5,7 @@ type RequestBodyTask struct {
 	Task           string `json:"Task"`
 	Accomplishment bool   `json:"Accomplishment"`
 }
+
+func (RequestBodyTask) TableName() string {
+	return "tasks"
+}
