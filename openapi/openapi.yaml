@@ -3,7 +3,7 @@ info:
   title: API
   version: 1.0.0 
 paths:
-  /task:
+  /tasks:
     get:
       summary: Get all tasks
       tags:
@@ -35,7 +35,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-  /task/{id}:
+  /tasks/{id}:
     parameters:
       - name: id
         in: path

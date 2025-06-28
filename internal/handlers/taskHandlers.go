@@ -18,13 +18,13 @@ func NewTaskHandler(s taskservice.MainTaskService) *TaskHandler {
 	return &TaskHandler{service: s}
 }
 
-func (h *TaskHandler) GetTask(ctx context.Context, request tasks.GetTaskRequestObject) (tasks.GetTaskResponseObject, error) {
+func (h *TaskHandler) GetTasks(ctx context.Context, request tasks.GetTasksRequestObject) (tasks.GetTasksResponseObject, error) {
 	allTasks, err := h.service.GetAllTask()
 	if err != nil {
 		return nil, err
 	}
 
-	var response tasks.GetTask200JSONResponse
+	var response tasks.GetTasks200JSONResponse
 
 	for _, t := range allTasks {
 		id := uint(t.ID)
@@ -40,8 +40,7 @@ func (h *TaskHandler) GetTask(ctx context.Context, request tasks.GetTaskRequestO
 
 	return response, nil
 }
-
-func (h *TaskHandler) PostTask(ctx context.Context, request tasks.PostTaskRequestObject) (tasks.PostTaskResponseObject, error) {
+func (h *TaskHandler) PostTasks(ctx context.Context, request tasks.PostTasksRequestObject) (tasks.PostTasksResponseObject, error) {
 	taskRequest := request.Body
 
 	taskToCreate := taskservice.RequestBodyTask{
@@ -56,7 +55,7 @@ func (h *TaskHandler) PostTask(ctx context.Context, request tasks.PostTaskReques
 
 	id := uint(createdTask.ID)
 
-	response := tasks.PostTask201JSONResponse{
+	response := tasks.PostTasks201JSONResponse{
 		Id:             &id,
 		Task:           &createdTask.Task,
 		Accomplishment: &createdTask.Accomplishment,
@@ -64,8 +63,7 @@ func (h *TaskHandler) PostTask(ctx context.Context, request tasks.PostTaskReques
 
 	return response, nil
 }
-
-func (h *TaskHandler) PatchTaskId(ctx context.Context, request tasks.PatchTaskIdRequestObject) (tasks.PatchTaskIdResponseObject, error) {
+func (h *TaskHandler) PatchTasksId(ctx context.Context, request tasks.PatchTasksIdRequestObject) (tasks.PatchTasksIdResponseObject, error) {
 
 	update := request.Body
 
@@ -87,16 +85,15 @@ func (h *TaskHandler) PatchTaskId(ctx context.Context, request tasks.PatchTaskId
 		Accomplishment: &updated.Accomplishment,
 	}
 
-	return tasks.PatchTaskId201JSONResponse(result), nil
-
+	return tasks.PatchTasksId201JSONResponse(result), nil
 }
 
-func (h *TaskHandler) DeleteTaskId(ctx context.Context, request tasks.DeleteTaskIdRequestObject) (tasks.DeleteTaskIdResponseObject, error) {
+func (h *TaskHandler) DeleteTasksId(ctx context.Context, request tasks.DeleteTasksIdRequestObject) (tasks.DeleteTasksIdResponseObject, error) {
 	id := request.Id
 
 	if err := h.service.DeleteTask(int(id)); err != nil {
 		return nil, echo.NewHTTPError(http.StatusInternalServerError, "Could not delete task")
 	}
 
-	return tasks.DeleteTaskId204JSONResponse{}, nil
+	return tasks.DeleteTasksId204JSONResponse{}, nil
 }
