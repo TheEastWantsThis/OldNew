@@ -16,8 +16,8 @@ import (
 
 // Task defines model for Task.
 type Task struct {
-	Accomplishment *bool   `json:"Accomplishment,omitempty"`
 	Id             *uint   `json:"id,omitempty"`
+	Accomplishment *bool   `json:"Accomplishment,omitempty"`
 	Task           *string `json:"task,omitempty"`
 }
 

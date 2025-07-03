@@ -7,5 +7,5 @@ type RequestBodyTask struct {
 }
 
 func (RequestBodyTask) TableName() string {
-	return "tasks"
+	return "request_body_tasks"
 }

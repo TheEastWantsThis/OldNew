@@ -12,7 +12,7 @@ type taskService struct {
 	repo MainTaskRepository
 }
 
-func NewTaskService(repo MainTaskRepository) *taskService { //, idGen *AutoIncrement
+func NewTaskService(repo MainTaskRepository) *taskService {
 	return &taskService{
 		repo: repo,
 	}

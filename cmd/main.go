@@ -7,6 +7,8 @@ import (
 	"github.com/TheEastWantsThis/OldNew/internal/handlers"
 	taskservice "github.com/TheEastWantsThis/OldNew/internal/taskService"
 	"github.com/TheEastWantsThis/OldNew/internal/web/tasks"
+	"github.com/TheEastWantsThis/OldNew/internal/web/users"
+	userservice "github.com/TheEastWantsThis/OldNew/userService"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -22,16 +24,20 @@ func main() {
 	e := echo.New()
 
 	taskRepo := taskservice.NewTaskRepository(database)
-
-	//idGen := &taskservice.AutoIncrement{}
-	taskService := taskservice.NewTaskService(taskRepo) //, idGen
+	taskService := taskservice.NewTaskService(taskRepo)
 	taskHandlers := handlers.NewTaskHandler(taskService)
+
+	userRepo := userservice.NewUserRepository(database)
+	userSer := userservice.NewUserService(userRepo)
+	userHandlers := handlers.NewUserHandler(userSer)
 
 	e.Use(middleware.CORS())
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	strictHandler := tasks.NewStrictHandler(taskHandlers, nil) // тут будет ошибка
+	strictUserHandler := users.NewStrictHandler(userHandlers, nil)
+	users.RegisterHandlers(e, strictUserHandler)
+	strictHandler := tasks.NewStrictHandler(taskHandlers, nil)
 	tasks.RegisterHandlers(e, strictHandler)
 
 	if err := e.Start(":9090"); err != nil {
