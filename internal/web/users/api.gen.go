@@ -20,9 +20,9 @@ type User struct {
 	Id        *int       `json:"id,omitempty"`
 	Email     *string    `json:"email,omitempty"`
 	Password  *string    `json:"password,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at"`
+	CreatedAt *time.Time `json:"created,omitempty"`
+	UpdatedAt *time.Time `json:"updated,omitempty"`
+	DeletedAt *time.Time `json:"deleted"`
 }
 
 // PostUsersJSONRequestBody defines body for PostUsers for application/json ContentType.
